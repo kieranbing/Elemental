@@ -14,10 +14,14 @@ void draw(){
 
 void mousePressed(){
   
+  player.shoot();
+  
+  /*
   player.b.x = player.x;
   player.b.y = player.y;
   
   player.b.setV();
+  */
   
   //player.rotate = atan2(player.y-mouseY,player.x-mouseX);
  // player.rotate = atan2(player.y-mouseY,mouseX-player.x);

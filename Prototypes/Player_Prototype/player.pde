@@ -1,9 +1,11 @@
 class Player{
   int x,y;
   float rotate = 0;
-  int headDiameter = 20;
+  int headDiameter = 20, ammoCount = 10; 
   PVector vec;
-  Bullet b = new Bullet();
+ // Bullet b = new Bullet();
+  ArrayList<Bullet> bullets = new ArrayList <Bullet>();
+  int numBullets = 0;
   
   public Player(int xPos, int yPos){
     x=xPos;
@@ -20,7 +22,12 @@ class Player{
     textAlign(LEFT);
     text(degrees(rotate)+" - ("+(mouseX-x)+", "+(mouseY-y)+")",10,10);
     
-    b.display();
+    if (numBullets > 0){
+    for (int i=0;i<bullets.size();i++){
+      Bullet b = bullets.get(i);
+      b.display();
+    }
+    }
     
     pushMatrix();
     translate(x,y);
@@ -38,7 +45,12 @@ class Player{
     
     popMatrix();
     
-    arc(x,y,100,100,(rotate>0?-rotate:-PI-(PI+rotate)),0/*(rotate<0?-rotate:0)*/);
+    //arc(x,y,100,100,(rotate>0?-rotate:-PI-(PI+rotate)),0/*(rotate<0?-rotate:0)*/);
+    
+    noFill();
+    rect(x-50,y-(headDiameter+20), 100,10);
+    fill(0,0,255);
+    rect(x-50,y-(headDiameter+20),ammoCount*10,10);
     
     
     /*fill(0);
@@ -48,6 +60,15 @@ class Player{
     noFill();
     stroke(1);
     ellipse(x,y,headDiameter,headDiameter);*/
+  }
+  
+  void shoot(){
+    if (ammoCount > 0){
+      bullets.add(new Bullet(this.x, this.y));
+    
+      ammoCount--;
+      numBullets++;
+    }
   }
   
   /*void look(int xin, int yin){
