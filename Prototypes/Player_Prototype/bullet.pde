@@ -3,27 +3,47 @@ class Ammo{
 }
 
 class Bullet{
+  float SPEED = 15; 
+  
   float xVel = 0, yVel = 0;
   float x = width/2,y = height/2, oldx = 0, oldy = 0;
   float easing = 0.05;
+  char element;
   
-  Bullet(float x, float y){
+  Bullet(float x, float y, char e){
     this.x = x;
     this.y = y;
     this.xVel = setV(x,'x');
     this.yVel = setV(y,'y');
+    
+    this.element = e; 
+    
     //this.xVel = xVel;
     //this.yVel = yVel;
   }
   
   void display(){
-    x += 5*xVel;
-    y += 5*yVel;
+    x += this.SPEED * this.xVel;
+    y += this.SPEED * this.yVel;
     
     //x = (1-easing) * oldx + easing * mouseX;
     //y = (1-easing) * oldy + easing * mouseY;
     
-    fill(0,0.255);
+    switch(this.element){
+      case 'e':
+        fill(0,0,255);
+        break;
+      case 'f':
+        fill(255,0,0);
+        break;
+      case 'g':
+        fill(0,255,0);
+        break;
+      default:
+        fill(0);
+    }
+    
+    //fill(0,0,255);
     ellipse(x,y,5,5);
     
   //  textAlign(RIGHT);
